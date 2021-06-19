@@ -17,6 +17,7 @@ export default {
   methods:{
     click(a,b){
       console.log(a,b)
+       this.$emit('hello')
       this.$emit('update:inputAttr',{type:'password',value:23})
     }
   },

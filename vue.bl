@@ -1,0 +1,14 @@
+<template>
+    <div class="{{toLowerLineCN}}"></div>
+</template>
+  <script>
+  export default {
+      name: '{{ComponentName}}',
+      data(){
+          return {}
+      }
+  }
+  </script>
+  <style lang="stylus" scoped>
+  
+  </style>

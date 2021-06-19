@@ -7,6 +7,16 @@ module.exports = {
       libraryName: 'vant',
       libraryDirectory: 'es',
       style: true
-    }, 'vant']
+    }, 'vant'],
+    ["import",{
+        libraryName: "ant-design-vue",
+        libraryDirectory: "es",
+        style: true
+      },"ant-design-vue"],
+      ["import",{
+        "libraryName": "lodash",
+        "libraryDirectory": "",
+        "camel2DashComponentName": false,  // default: true
+      },"lodash"]
   ]
 }

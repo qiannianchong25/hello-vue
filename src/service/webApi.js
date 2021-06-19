@@ -18,6 +18,21 @@ const WEB_API={
     delContact:{
         method:'delete',
         url:'/concat/delete'
+    },
+    // 获取列表
+    getList:{
+        method:'get',
+        url:'/job/company/search'
+    },
+    // 获取列表
+    getLocal:{
+        method:'get',
+        url:'/mock/list'
+    },
+    //获取用户信息
+    getUserInfo:{
+        method:'get',
+        url:'/mock/userInfo'
     }
 }
 export default WEB_API

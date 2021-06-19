@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 // const requireComponent=require.context('../views',false,/\.vue$/);
 // requireComponent.keys().forEach(key=>{
 //   console.log('component',requireComponent(key)) // 返回一个模块，这个模块就是真正需要的
@@ -13,17 +12,53 @@ Vue.use(VueRouter)
 const routes = [{
     path: '/',
     name: 'Home',
-    beforeEnter: (to,from,next) => {
+    component:()=>import('../views/Home.vue'),
+    beforeEnter: (to, from, next) => {
       console.log(this)
       console.log('HomebeforeEnter')
       next()
-    },
-    component: Home
+    }
+  },
+  {
+    path: '/grid/:a',
+    name: 'Grid',
+    component: () => import('../views/Grid.vue')
+  },
+  {
+    path: '/layout',
+    name: 'Layout',
+    component: () => import('../layouts/BasicLayout.vue')
+  },
+  {
+    path: '/input',
+    name: 'PasswordInput',
+    component: () => import('../views/PasswordInput.vue')
+  },
+  {
+    path: '/model',
+    name: 'Model',
+    component: () => import('../views/Model.vue')
+  },
+  {
+    path: '/user',
+    component: ()=>import('../layouts/UserLayout.vue'),
+    redirect: '/user/login',
+    children: [{
+        path: 'login',
+        name: 'Login',
+        component: () => import('../views/user/Login.vue'),
+      },
+      {
+        path: 'register',
+        name: 'Register',
+        component: () => import('../views/user/Register.vue'),
+      }
+    ]
   },
   {
     path: '/about',
     name: 'About',
-    beforeEnter: (to,from,next) => {
+    beforeEnter: (to, from, next) => {
       console.log(this)
       console.log('AboutbeforeEnter')
       next()
@@ -32,6 +67,10 @@ const routes = [{
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import( /* webpackChunkName: "about" */ '../views/About.vue')
+  },
+  {
+    path: '*',
+    redirect: '/'
   }
 ]
 
@@ -40,11 +79,14 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
   scrollBehavior(to, from, savedPosition) {
-    console.log('savedPosition',savedPosition)
+    console.log('savedPosition', savedPosition)
     if (savedPosition) {
       return savedPosition
     } else {
-      return { x: 0, y: 0 }
+      return {
+        x: 0,
+        y: 0
+      }
     }
   }
 })

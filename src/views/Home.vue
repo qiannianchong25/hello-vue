@@ -11,7 +11,13 @@
     <transition name="van-slide-up">
       <div v-show="visible" @click="slideUp" class="slide">Slide Up</div>
     </transition>
-    <hello-world msg="乖儿子，叫爸爸" test="goodtest" #default="attr" @hello="clickHello" :inputAttr.sync="inputAttr">
+    <hello-world
+      msg="乖儿子，叫爸爸1"
+      test="goodtest"
+      #default="attr"
+      @hello="clickHello"
+      :inputAttr.sync="inputAttr"
+    >
       -->
       <!-- <template #default="attr">
          {{attr.content}}
@@ -51,44 +57,44 @@ const list = [
                     name: "棠棣",
                     children: [
                       {
-                        name: "李园"
+                        name: "李园",
                       },
                       {
-                        name: "河德"
+                        name: "河德",
                       },
                       {
-                        name: "陈河"
-                      }
-                    ]
+                        name: "陈河",
+                      },
+                    ],
                   },
                   {
-                    name: "陈店"
-                  }
-                ]
+                    name: "陈店",
+                  },
+                ],
               },
               {
-                name: "云梦"
+                name: "云梦",
               },
               {
-                name: "孝昌"
-              }
-            ]
+                name: "孝昌",
+              },
+            ],
           },
           {
             name: "武汉",
             children: [
               {
-                name: "武昌"
+                name: "武昌",
               },
               {
-                name: "汉口"
+                name: "汉口",
               },
               {
-                name: "汉阳"
-              }
-            ]
-          }
-        ]
+                name: "汉阳",
+              },
+            ],
+          },
+        ],
       },
       {
         name: "浙江",
@@ -97,46 +103,46 @@ const list = [
             name: "杭州",
             children: [
               {
-                name: "淳安"
-              }
-            ]
+                name: "淳安",
+              },
+            ],
           },
           {
-            name: "丽水"
-          }
-        ]
+            name: "丽水",
+          },
+        ],
       },
       {
         name: "安徽",
         children: [
           {
-            name: "合肥"
+            name: "合肥",
           },
           {
             name: "滁州",
             children: [
               {
-                name: "全椒"
+                name: "全椒",
               },
               {
-                name: "琅琊区"
+                name: "琅琊区",
               },
               {
-                name: "会峰区"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
+                name: "会峰区",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
 ];
 // @ is an alias to /src
-import VueInput from './../components/VueInput'
+import VueInput from "./../components/VueInput";
 import Tree from "../components/Tree";
 import { Col, Row } from "vant";
 import HelloWorld from "../components/HelloWorld";
-import {mapMutations} from 'vuex'
+import { mapMutations } from "vuex";
 export default {
   name: "Home",
   components: {
@@ -150,20 +156,20 @@ export default {
       props: ["src"],
       data() {
         return {
-          msg: "I'm a child"
+          msg: "I'm a child",
         };
-      }
+      },
     },
     // 异步组件
     AsyncComponent: {
-       //无法使用#async
+      //无法使用#async
       template: "#async",
       data() {
         return {
-          async: "async异步喽！"
+          async: "async异步喽！",
         };
-      }
-    }
+      },
+    },
     // asyncComponent:(resolve,reject)=>{
     //   try{
     //     setTimeout(()=>resolve({
@@ -182,34 +188,50 @@ export default {
   filters: {
     toArray(val) {
       return Array.of(val);
-    }
+    },
   },
   data() {
     return {
       list,
       visible: true,
       src: "static/logo.png",
-      inputAttr:{
-        type:'text',
-        value:12
-      }
+      inputAttr: {
+        type: "text",
+        value: 12,
+      },
+      aa:this.$store.state.ab.abb.b
     };
   },
   watch: {},
   methods: {
-    ...mapMutations(['INCREACE']),
-    jump(){
-      location='https://www.baidu.com/'
+    ...mapMutations(["INCREACE"]),
+    ...mapMutations("ab", {
+      add: "ADD",
+      add2: "ADD2",
+    }),
+    //  ...mapMutations('ab/abb',{
+    //   add2:'ADD2'
+    // }),
+    jump() {
+      location = "https://www.baidu.com/";
     },
-    clickHello(e,arg) {
-      console.log(e,'hello',arg)
-    },   
+    clickHello() {
+      console.log(this.$store.state.a,this.$store.getters.getA)
+      console.log(
+        "hello",
+        this.add2({ amount: 2 }),
+        this.$store.state.ab.abb.a,
+        this.aa
+      );
+      // debugger;
+      // this.$router.push({ name: "Model" });
+    },
     rowClick() {
       let second = 3;
       let toast = this.Toast.loading({
         duration: 0, // 持续展示 toast
         forbidClick: true,
-        message: `倒计时 ${second} 秒`
+        message: `倒计时 ${second} 秒`,
       });
       let timer = setInterval(() => {
         if (second) {
@@ -222,7 +244,7 @@ export default {
     },
     slideUp() {
       this.visible = !this.visible;
-    }
+    },
   },
   // activated(){
   //   alert(1)
@@ -230,53 +252,52 @@ export default {
   // deactivated(){
   //   alert(2)
   // },
- beforeRouteEnter (to,from,next) {
-    console.log(this)
-    console.log('HomebeforeRouteEnter')
-    next()
-  },
-  beforeRouteUpdate (to,from,next) {
-    console.log(this)
-    console.log('HomebeforeRouteEnter')
-    next()
-  },
-  beforeRouteLeave (to,from,next) {
-    console.log(this)
-    console.log('HomebeforeRouteEnter')
-    next()
-  },
-  activated(){
-    console.log(this)
-    console.log('Homeactivated')
-  },
-  deactivated(){
-    console.log(this)
-    console.log('Homedeactivated')
-  },
-  beforeCreate(){
-    console.log(this)
-    console.log('HomebeforeCreate')
-  },
-  created(){
-    console.log(this)
-    console.log('Homecreated')
-  },
-  beforeMount(){
-    console.log(this)
-    console.log('HomebeforeMount')
-  },
-  mounted(){
-    console.log(this)
-    console.log('Homemounted')
-  },
-  beforeDestroy(){
-    console.log(this)
-    console.log('HomebeforeDestroy')
-  },
-  destroyed(){
-    console.log(this)
-    console.log('Homedestroyed')
-  }
+  //  beforeRouteEnter (to,from,next) {
+  //     console.log(this)
+  //     console.log('HomebeforeRouteEnter',to,from)
+  //     next()
+  //   },
+  //   beforeRouteUpdate (to,from,next) {
+
+  //     console.log('HomebeforeRouteUpdate',to,from)
+  //     next()
+  //   },
+  //   beforeRouteLeave (to,from,next) {
+  //     console.log('HomebeforeRouteLeave',to,from)
+  //     next()
+  //   },
+  //   activated(){
+  //     console.log(this)
+  //     console.log('Homeactivated')
+  //   },
+  //   deactivated(){
+  //     console.log(this)
+  //     console.log('Homedeactivated')
+  //   },
+  //   beforeCreate(){
+  //     console.log(this)
+  //     console.log('HomebeforeCreate')
+  //   },
+  //   created(){
+  //     console.log(this)
+  //     console.log('Homecreated')
+  //   },
+  //   beforeMount(){
+  //     console.log(this)
+  //     console.log('HomebeforeMount')
+  //   },
+  //   mounted(){
+  //     console.log(this)
+  //     console.log('Homemounted')
+  //   },
+  //   beforeDestroy(){
+  //     console.log(this)
+  //     console.log('HomebeforeDestroy')
+  //   },
+  //   destroyed(){
+  //     console.log(this)
+  //     console.log('Homedestroyed')
+  //   }
   // mounted() {
   //   let { prefix, toArray } = this.$options.filters;
   //   let compose = (...fns) => x => fns.reduce((f, g) => g(f), x);
